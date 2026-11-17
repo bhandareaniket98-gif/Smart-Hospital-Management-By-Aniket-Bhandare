@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patient Registration | Smart Hospital</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial;background:#edf4f7;margin:0;padding:20px;color:#173042}
+.container{max-width:450px;margin:25px auto;background:white;padding:25px;border-radius:16px;box-shadow:0 5px 25px #0001}
+h2{text-align:center;color:#087e8b}
+input,select,button{width:100%;padding:13px;margin:8px 0;border:1px solid #ccd8df;border-radius:8px;font-size:15px}
+button{background:#087e8b;color:white;border:0;font-weight:bold;cursor:pointer}
+button.secondary{background:#e5f2f4;color:#087e8b}
+.note{font-size:13px;color:#607782}
+#msg{padding:10px;border-radius:8px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>SMART HOSPITAL</h2>
+<p style="text-align:center">Patient Account</p>
+
+<h3>New Patient Registration</h3>
+<form id="registerForm">
+<input id="name" placeholder="Full Name" required>
+<input id="age" type="number" min="1" max="120" placeholder="Age" required>
+<select id="gender" required>
+<option value="">Select Gender</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+<input id="phone" type="tel" maxlength="10" placeholder="10 Digit Mobile Number" required>
+<input id="password" type="password" minlength="8" placeholder="Create Password (min 8 characters)" required>
+<button type="submit">Register</button>
+</form>
+
+<hr>
+<h3>Already Registered? Login</h3>
+<form id="loginForm">
+<input id="loginPhone" type="tel" maxlength="10" placeholder="Mobile Number" required>
+<input id="loginPassword" type="password" placeholder="Password" required>
+<button type="submit">Login</button>
+</form>
+
+<p class="note">OTP verification is not used. Your mobile number is not verified by this method.</p>
+<div id="msg"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import {
+ getAuth, createUserWithEmailAndPassword,
+ signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import {
+ getFirestore, doc, setDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+ apiKey: "AIzaSyBs2hpFSjbacxGoQgRtMOnOANgKTN_Nkn0",
+ authDomain: "smt-hospital-2.firebaseapp.com",
+ projectId: "smt-hospital-2",
+ storageBucket: "smt-hospital-2.firebasestorage.app",
+ messagingSenderId: "704315438706",
+ appId: "1:704315438706:web:0989f487fc90e52a5af4eb",
+ measurementId: "G-4V8NPEE097"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const msg = document.getElementById("msg");
+
+function phoneEmail(phone){
+ return "91" + phone + "@patient.smarthospital.com";
+}
+
+function showMessage(text, error=false){
+ msg.textContent=text;
+ msg.style.background=error?"#ffe5e5":"#e4f7eb";
+ msg.style.color=error?"#a00000":"#12652e";
+}
+
+document.getElementById("registerForm").addEventListener("submit",async(e)=>{
+ e.preventDefault();
+ const name=document.getElementById("name").value.trim();
+ const age=Number(document.getElementById("age").value);
+ const gender=document.getElementById("gender").value;
+ const phone=document.getElementById("phone").value.trim();
+ const password=document.getElementById("password").value;
+
+ if(!/^[0-9]{10}$/.test(phone)){
+  return showMessage("Enter a valid 10 digit mobile number.",true);
+ }
+ if(!Number.isInteger(age)||age<1||age>120){
+  return showMessage("Enter a valid age.",true);
+ }
+
+ try{
+  showMessage("Registering...");
+  const credential=await createUserWithEmailAndPassword(
+   auth,phoneEmail(phone),password
+  );
+
+  await setDoc(doc(db,"patients",credential.user.uid),{
+   name,age,gender,phone,
+   createdAt:serverTimestamp()
+  });
+
+  showMessage("Registration successful! Opening appointment page...");
+  location.href="appointment.html";
+ }catch(error){
+  console.error(error);
+  showMessage(error.message,true);
+ }
+});
+
+document.getElementById("loginForm").addEventListener("submit",async(e)=>{
+ e.preventDefault();
+ const phone=document.getElementById("loginPhone").value.trim();
+ const password=document.getElementById("loginPassword").value;
+
+ if(!/^[0-9]{10}$/.test(phone)){
+  return showMessage("Enter a valid 10 digit mobile number.",true);
+ }
+
+ try{
+  showMessage("Logging in...");
+  await signInWithEmailAndPassword(auth,phoneEmail(phone),password);
+  showMessage("Login successful!");
+  location.href="appointment.html";
+ }catch(error){
+  console.error(error);
+  showMessage("Login failed. Check mobile number and password.",true);
+ }
+});
+</script>
+</body>
+</html>
