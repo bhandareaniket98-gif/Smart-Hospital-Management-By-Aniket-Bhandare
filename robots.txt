@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://bhandareaniket98-gif.github.io/Smart-Hospital-Management-By-Aniket-Bhandare/sitemap.xml
