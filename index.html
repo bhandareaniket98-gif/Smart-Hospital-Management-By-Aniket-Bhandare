@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Hospital | Home</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:#f3f7fb;
+  color:#17324d;
+}
+
+header{
+  background:#ffffff;
+  padding:18px 7%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 3px 15px rgba(0,0,0,.06);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-icon{
+  width:48px;
+  height:48px;
+  background:#087e8b;
+  color:white;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  font-size:29px;
+  font-weight:bold;
+}
+
+.logo h2{
+  font-size:21px;
+  color:#123b55;
+}
+
+.logo p{
+  font-size:11px;
+  color:#718096;
+  margin-top:4px;
+  letter-spacing:1px;
+}
+
+.hero{
+  background:linear-gradient(120deg,#073b55,#087e8b);
+  color:white;
+  padding:65px 8% 85px;
+  text-align:center;
+}
+
+.hero .tag{
+  display:inline-block;
+  padding:8px 17px;
+  border:1px solid #ffffff55;
+  border-radius:30px;
+  font-size:12px;
+  letter-spacing:1px;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  font-size:38px;
+  margin-bottom:15px;
+}
+
+.hero p{
+  max-width:600px;
+  margin:auto;
+  color:#d8edf0;
+  font-size:15px;
+  line-height:1.7;
+}
+
+main{
+  max-width:1050px;
+  margin:-42px auto 0;
+  padding:0 20px 45px;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.section-title h2{
+  font-size:23px;
+  color:#153d55;
+}
+
+.section-title p{
+  color:#718096;
+  margin-top:8px;
+  font-size:14px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.card{
+  background:white;
+  padding:30px 22px;
+  border-radius:18px;
+  box-shadow:0 8px 28px rgba(20,60,80,.09);
+  text-align:center;
+  border:1px solid #e8eff4;
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 15px 32px rgba(20,60,80,.15);
+}
+
+.card-icon{
+  width:70px;
+  height:70px;
+  margin:0 auto 20px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  font-size:32px;
+}
+
+.patient .card-icon{background:#e0f5f2;}
+.owner .card-icon{background:#e8edff;}
+.billing .card-icon{background:#fff1dc;}
+
+.card h3{
+  font-size:19px;
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#718096;
+  font-size:13px;
+  line-height:1.6;
+  min-height:42px;
+}
+
+.card button{
+  width:100%;
+  border:0;
+  padding:13px;
+  margin-top:22px;
+  border-radius:10px;
+  background:#087e8b;
+  color:white;
+  font-weight:bold;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.owner button{background:#4059a8;}
+.billing button{background:#d58a28;}
+
+.card button:hover{
+  opacity:.88;
+}
+
+.info{
+  margin-top:35px;
+  padding:20px;
+  background:#e7f3f5;
+  border-radius:14px;
+  text-align:center;
+  color:#38616d;
+  font-size:13px;
+  line-height:1.7;
+}
+
+footer{
+  background:#10384e;
+  color:#d6e6ec;
+  padding:22px 15px;
+  text-align:center;
+  font-size:12px;
+  line-height:1.8;
+}
+
+@media(max-width:750px){
+  .hero{padding:50px 20px 75px;}
+  .hero h1{font-size:29px;}
+  .cards{grid-template-columns:1fr;}
+  .card{padding:25px;}
+  .card p{min-height:auto;}
+  header{padding:14px 18px;}
+  .logo h2{font-size:18px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">+</div>
+    <div>
+      <h2>SMART HOSPITAL</h2>
+      <p>HEALTHCARE MANAGEMENT SYSTEM</p>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="tag">WELCOME TO SMART HOSPITAL</div>
+  <h1>Your Health, Our Priority</h1>
+  <p>
+    Providing better healthcare services through smart technology.
+    Access patient registration, hospital administration and billing
+    from one place.
+  </p>
+</section>
+
+<main>
+
+  <div class="section-title">
+    <h2>Choose Your Service</h2>
+    <p>Select an option to continue</p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card patient">
+      <div class="card-icon">🩺</div>
+      <h3>Patient Registration</h3>
+      <p>Register as a patient and access your hospital services.</p>
+      <button onclick="location.href='patients.html'">
+        Register Now →
+      </button>
+    </div>
+
+    <div class="card owner">
+      <div class="card-icon">🔐</div>
+      <h3>Owner Login</h3>
+      <p>Secure login for hospital owner and authorized administrators.</p>
+      <button onclick="location.href='admin.html'">
+        Login to Dashboard →
+      </button>
+    </div>
+
+    <div class="card billing">
+      <div class="card-icon">🧾</div>
+      <h3>Billing</h3>
+      <p>Access the hospital billing system and manage patient bills.</p>
+      <button onclick="location.href='billing.html'">
+        Open Billing →
+      </button>
+    </div>
+
+  </div>
+
+  <div class="info">
+    <strong>SMART HOSPITAL</strong><br>
+    A digital healthcare management platform designed
+    to make hospital services simple, secure and efficient.
+  </div>
+
+</main>
+
+<footer>
+  © 2026 Smart Hospital. All Rights Reserved.<br>
+  Digital Healthcare Management System
+</footer>
+
+</body>
+</html>
